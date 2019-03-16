@@ -1,0 +1,26 @@
+#!/usr/bin/ash
+
+run_latehook()
+{
+    if [ -n "${host}" ]; then
+        msg ">> boot into host"
+        return
+    fi
+
+    mkdir /image_new_root
+    mkdir /run/image-root
+    mkdir /run/host-root
+
+    msg ":: mounting '${imagedev}' as image root"
+    mount "${imagedev}" /run/image-root
+
+    msg ":: setting up loop device from '${imagepath}'"
+    local loopdev="$(losetup --partscan --find --show "/run/image-root${imagepath}")"
+
+    msg ":: mounting loop device '${loopdev}p1' as new root"
+    mount "${loopdev}p1" /image_new_root
+
+    mount --move /new_root /run/host-root
+    mount --move /image_new_root /new_root
+}
+

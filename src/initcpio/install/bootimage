@@ -1,0 +1,21 @@
+#!/bin/bash
+
+build()
+{
+    add_module fuse
+    add_module loop
+
+    add_binary mount.ntfs       # package: ntfs-3g
+    add_binary losetup          # package: util-linux
+
+    add_runscript
+}
+
+help()
+{
+    cat <<EOF
+This allows you to mount a raw disk image on an NTFS filesystem as the root filesystem.
+You need to install ntfs-3g via pacman manually.
+EOF
+}
+

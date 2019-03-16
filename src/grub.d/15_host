@@ -1,0 +1,8 @@
+#!/bin/sh
+CWD="$(dirname "$0")"
+
+GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT host=1"
+GRUB_DISTRIBUTOR="Host $GRUB_DISTRIBUTOR"
+
+. "$CWD/10_linux"
+
